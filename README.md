@@ -1,5 +1,5 @@
 ![Python](https://img.shields.io/badge/Python-3.11+-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.135.0+-green)
 ![SQLite](https://img.shields.io/badge/SQLite-database-lightblue)
 ![Pytest](https://img.shields.io/badge/Tests-pytest-orange)
 
