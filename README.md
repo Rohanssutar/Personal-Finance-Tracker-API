@@ -1,4 +1,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11+-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green)
+![SQLite](https://img.shields.io/badge/SQLite-database-lightblue)
+![Pytest](https://img.shields.io/badge/tests-pytest-orange)
 
 # Personal Finance Tracker API
 
