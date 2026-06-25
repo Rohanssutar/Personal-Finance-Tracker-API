@@ -160,3 +160,5 @@ or
 python -m pytest -v
 ```
 
+## Contributing
+Open an issue or submit a pull request with a clear description. All contributions welcome!
