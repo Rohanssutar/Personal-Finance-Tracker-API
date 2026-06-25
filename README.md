@@ -1,3 +1,5 @@
+![Python](https://img.shields.io/badge/Python-3.11+-blue)
+
 # Personal Finance Tracker API
 
 A FastAPI backend for a finance tracking system, built with SQLite and SQLAlchemy. This backend includes user management, transaction management, financial summaries, and role-based access control.
