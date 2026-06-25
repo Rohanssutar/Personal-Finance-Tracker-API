@@ -4,6 +4,7 @@
 ![Pytest](https://img.shields.io/badge/Tests-pytest-orange)
 
 # Personal Finance Tracker API
+> Finance tracking REST API with user auth, transactions, and RBAC — built with FastAPI + SQLAlchemy.
 
 A FastAPI backend for a finance tracking system, built with SQLite and SQLAlchemy. This backend includes user management, transaction management, financial summaries, and role-based access control.
 
