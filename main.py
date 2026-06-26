@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from routers import transactions, users
+from routers import transactions, users, auth
 from database import Base, engine
 
 
@@ -53,5 +53,6 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     )
 
 
+app.include_router(auth.router)
 app.include_router(transactions.router)
 app.include_router(users.router)
