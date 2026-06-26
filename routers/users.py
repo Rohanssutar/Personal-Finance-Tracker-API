@@ -4,6 +4,7 @@ from typing import List
 from database import get_db
 from database_models import User
 from schemas.user_schema import UserCreate, UserResponse
+from security import hash_password
 
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -42,7 +43,7 @@ def add_user(user: UserCreate, db: Session = Depends(get_db)):
     new_user = User(
         username=user.username,
         email=user.email,
-        password=user.password,
+        password=hash_password(user.password),
         role=user.role.value,
     )
 
@@ -68,7 +69,7 @@ def update_user(user_id: int, updated_data: UserCreate, db: Session = Depends(ge
     
     user.username = updated_data.username
     user.email = updated_data.email
-    user.password = updated_data.password
+    user.password = hash_password(updated_data.password)
     user.role = updated_data.role.value
 
     db.commit()
