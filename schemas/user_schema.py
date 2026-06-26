@@ -18,7 +18,11 @@ class UserCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
-class UserResponse(UserCreate):
+# Separate response schema — password is intentionally excluded
+class UserResponse(BaseModel):
     id: int
+    username: str
+    email: EmailStr
+    role: UserRole
 
     model_config = ConfigDict(from_attributes=True)

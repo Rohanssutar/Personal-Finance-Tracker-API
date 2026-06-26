@@ -1,21 +1,43 @@
 from fastapi import Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from database import get_db
 from database_models import User
+from jose import JWTError, jwt
+
+SECRET_KEY = "change-this-secret-key-in-production"
+ALGORITHM = "HS256"
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
-# Get current user from the database
-def get_user(user_id: int, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.id == user_id).first()
+def get_current_user(
+    token: str = Depends(oauth2_scheme),
+    db: Session = Depends(get_db)
+) -> User:
+    """Decode the JWT token and return the current logged-in user."""
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: str = payload.get("sub")
+        if user_id is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
 
+    user = db.query(User).filter(User.id == int(user_id)).first()
     if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise credentials_exception
     return user
 
 
-# Role-based access control function 
 def required_roles(allowed_roles: list[str]):
-    def role_check(user: User = Depends(get_user)):
+    """Check that the current user has one of the allowed roles."""
+    def role_check(user: User = Depends(get_current_user)):
         if user.role not in allowed_roles:
             raise HTTPException(status_code=403, detail="Access Denied")
         return user
